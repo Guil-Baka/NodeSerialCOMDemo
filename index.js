@@ -12,7 +12,6 @@ console.log("Serial port is open");
 
 const parser = new ReadlineParser();
 myPort.pipe(parser);
-
 parser.on("data", (line) => { console.log(line); });
 
 let i = 10;
