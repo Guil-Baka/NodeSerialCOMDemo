@@ -39,7 +39,7 @@ while (i === true) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
   myPort.write(`0,1,0\n`)
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  myPort.write(`0,0,1\n`)
+  myPort.write(`0,0,0\n`)
   await new Promise((resolve) => setTimeout(resolve, 1000));
   myPort.write(`1,1,0\n`)
   await new Promise((resolve) => setTimeout(resolve, 1000));
