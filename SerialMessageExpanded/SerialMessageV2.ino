@@ -81,12 +81,12 @@ void alternateLeds(String ledState[]){
   }
 }
 
-void endTransmission(String state[]0{
+void endTransmission(String state[]){
   // if pos 2 is 0 serial print "EOL"
   if (state[2] == "0"){
     Serial.println("EOL");
   }
-})
+}
 
 void setup(){
   Serial.begin(115200);
