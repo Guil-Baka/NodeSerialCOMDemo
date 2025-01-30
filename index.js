@@ -35,14 +35,15 @@ parser.on("data", (data) => {
 // myPort.write("Hello,World\n");
 let i = true;
 while (i === true) {
-  myPort.write(`1,0,0\n`);
+  myPort.write(`1,0,1\n`);
   await new Promise((resolve) => setTimeout(resolve, 1000));
-  myPort.write(`0,1,0\n`)
+  myPort.write(`0,1,1\n`)
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  myPort.write(`0,0,1\n`)
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  myPort.write(`1,1,1\n`)
   await new Promise((resolve) => setTimeout(resolve, 1000));
   myPort.write(`0,0,0\n`)
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  myPort.write(`1,1,0\n`)
-  await new Promise((resolve) => setTimeout(resolve, 1000));
 }
 
 

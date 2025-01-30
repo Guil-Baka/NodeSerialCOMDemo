@@ -112,4 +112,5 @@ void loop(){
   splitData();
   showNewData();
   alternateLeds(separatedData);
+  endTransmission(separatedData);
 }
