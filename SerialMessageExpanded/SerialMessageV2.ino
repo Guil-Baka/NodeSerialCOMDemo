@@ -8,14 +8,63 @@
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
 
+String separatedData[10];
 const byte numChars = 32;
 char receivedChars[numChars];
-char tempChars[numChars];        // temporary array for use when parsing
+bool newData = false;
 
+void receiveWithEndMarker(){
+  static byte ndx = 0;
+  char endMarker = '\n';
+  char rc;
+  
+  while (Serial.available() > 0 && newData == false) {
+    rc = Serial.read();
+    
+    if (rc != endMarker) {
+      receivedChars[ndx] = rc;
+      ndx++;
+      if (ndx >= numChars) {
+        ndx = numChars - 1;
+      }
+    }
+    else {
+      receivedChars[ndx] = '\0'; // terminate the string
+      ndx = 0;
+      newData = true;
+    }
+  }
+}
+
+void showNewData(){
+  if(newData == true){
+    Serial.print("This just in ... ");
+    Serial.println(receivedChars);
+    Serial.print("Separated data: ");
+    for(int i = 0; i < 10; i++){
+      Serial.print(separatedData[i]);
+      Serial.print(" \n");
+    }
+    Serial.println();
+    newData = false;
+  }
+}
+
+// this function will receive the receivedChars array and split it every time it finds a comma and store it in the separatedData array
+
+void splitData(){
+  char *token = strtok(receivedChars, ",");
+  int i = 0;
+  while(token != NULL){
+    separatedData[i] = token;
+    token = strtok(NULL, ",");
+    i++;
+  }
+}
 
 void setup(){
   Serial.begin(115200);
-  
+
   display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
   display.ssd1306_command(SSD1306_SETCONTRAST);
   display.ssd1306_command(0x81);
@@ -30,4 +79,10 @@ void setup(){
   display.display();
   delay(2000);
   Serial.println("Ready to receive!");
+}
+
+void loop(){
+  receiveWithEndMarker();
+  splitData();
+  showNewData();
 }

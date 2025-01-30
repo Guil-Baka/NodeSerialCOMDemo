@@ -3,8 +3,8 @@ import { ReadlineParser } from "@serialport/parser-readline";
 import path from "path";
 
 const myPort = new SerialPort({
-  // path: "/dev/ttyACM0",
-  path: "COM12",
+  path: "/dev/ttyACM0",
+  // path: "COM12",
   baudRate: 9600,
   autoOpen: true,
 });
@@ -32,6 +32,11 @@ parser.on("data", (data) => {
 // }
 
 // now send data using "," as delimiter
-myPort.write("<Hello,World>");
+// myPort.write("Hello,World\n");
+
+for (let i = 0; i < 10; i++) {
+  myPort.write(`Hello,World,pinto\n`);
+  // console.log(`Sent: <${i}>`);
+}
 
 
