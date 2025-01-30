@@ -85,6 +85,7 @@ void endTransmission(String state[]){
   // if pos 2 is 0 serial print "EOL"
   if (state[2] == "0"){
     Serial.println("EOL");
+    separatedData[2] = "1";
   }
 }
 
