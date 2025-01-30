@@ -62,6 +62,25 @@ void splitData(){
   }
 }
 
+void alternateLeds(String ledState[]){
+  if (ledState[0] == "1"){
+    //TX high
+    digitalWrite(LED_BUILTIN_TX, HIGH);
+  }
+  else{
+    //TX low
+    digitalWrite(LED_BUILTIN_TX, LOW);
+  }
+  if (ledState[1] == "1"){
+    //RX high
+    digitalWrite(LED_BUILTIN_RX, HIGH);
+  }
+  else{
+    //RX low
+    digitalWrite(LED_BUILTIN_RX, LOW);
+  }
+}
+
 void setup(){
   Serial.begin(115200);
 
@@ -85,4 +104,5 @@ void loop(){
   receiveWithEndMarker();
   splitData();
   showNewData();
+  alternateLeds(separatedData);
 }

@@ -1,6 +1,6 @@
 import { SerialPort } from "serialport";
 import { ReadlineParser } from "@serialport/parser-readline";
-import path from "path";
+import path, { resolve } from "path";
 
 const myPort = new SerialPort({
   path: "/dev/ttyACM0",
@@ -33,10 +33,16 @@ parser.on("data", (data) => {
 
 // now send data using "," as delimiter
 // myPort.write("Hello,World\n");
-
-for (let i = 0; i < 10; i++) {
-  myPort.write(`Hello,World,pinto\n`);
-  // console.log(`Sent: <${i}>`);
+let i = true;
+while (i === true) {
+  myPort.write(`1,0,0\n`);
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  myPort.write(`0,1,0\n`)
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  myPort.write(`0,0,1\n`)
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+  myPort.write(`1,1,0\n`)
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 }
 
 
